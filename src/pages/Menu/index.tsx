@@ -26,7 +26,7 @@ export default function Menu() {
           <Filters filter={filter} setFilter={setFilter} />
           <Order order={order} setOrder={setOrder} />
         </div>
-        <Itens />
+        <Itens searchValue={searchValue} filter={filter} order={order} />
       </section>
     </main>
   );
