@@ -1,6 +1,7 @@
 import itens from "data/itens.json";
 import styles from "./Home.module.scss";
 import stylesTheme from "styles/Theme.module.scss";
+import OurHome from "assets/nossa_casa.png";
 
 export default function Home() {
   let recommendedDishes = [...itens];
@@ -20,6 +21,13 @@ export default function Home() {
             <button className={styles.recommended__button}>Ver mais</button>
           </div>
         ))}
+      </div>
+      <h3 className={stylesTheme.title}>Nossa casa</h3>
+      <div className={styles.ourHome}>
+        <img src={OurHome} alt="Casa do aluroni" />
+        <div className={styles.ourHome__address}>
+          Rua Vergueiro, 3185 <br /> <br /> Vila Mariana - SP
+        </div>
       </div>
     </section>
   );
