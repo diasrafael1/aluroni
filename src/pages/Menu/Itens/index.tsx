@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
-import itens from "data/itens.json";
+import dishes from "data/dishes.json";
 import Item from "./Item";
 import styles from "./Itens.module.scss";
+import { Dishes } from "types/dish";
 
 interface Props {
   searchValue: string;
@@ -10,7 +11,7 @@ interface Props {
 }
 
 export default function Itens({ searchValue, filter, order }: Props) {
-  const [listItens, setListItens] = useState(itens);
+  const [listItens, setListItens] = useState(dishes);
 
   function testSearch(title: string) {
     const regex = new RegExp(searchValue, "i");
@@ -22,7 +23,7 @@ export default function Itens({ searchValue, filter, order }: Props) {
     return true;
   }
 
-  function handleOrder(list: typeof itens): typeof itens {
+  function handleOrder(list: Dishes): Dishes {
     switch (order) {
       case "porcao":
         return list.sort((a, b) => (a.size > b.size ? 1 : -1));
@@ -36,8 +37,8 @@ export default function Itens({ searchValue, filter, order }: Props) {
   }
 
   useEffect(() => {
-    const newList = itens.filter(
-      (item) => testSearch(item.title) && testFilter(item.category.id)
+    const newList = dishes.filter(
+      (dish) => testSearch(dish.title) && testFilter(dish.category.id)
     );
 
     setListItens(handleOrder(newList));

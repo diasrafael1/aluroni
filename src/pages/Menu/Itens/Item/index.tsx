@@ -1,14 +1,19 @@
+import TagsDish from "components/TagsDish";
+import { useNavigate } from "react-router-dom";
+import { Dish } from "types/dish";
 import styles from "./Item.module.scss";
-import itens from "data/itens.json";
-import classNames from "classnames";
 
 interface Props {
-  item: typeof itens[0];
+  item: Dish;
 }
 
 export default function Item({ item }: Props) {
+  const navigate = useNavigate();
   return (
-    <div className={styles.item}>
+    <div
+      className={styles.item}
+      onClick={() => navigate(`/cardapio/prato/${item.id}`)}
+    >
       <div className={styles.item__image}>
         <img src={item.photo} alt={item.title} />
       </div>
@@ -17,24 +22,7 @@ export default function Item({ item }: Props) {
           <h2>{item.title}</h2>
           <p>{item.description}</p>
         </div>
-        <div className={styles.item__tags}>
-          <div
-            className={classNames({
-              [styles.item__type]: true,
-              [styles[`item__type__${item.category.label.toLowerCase()}`]]:
-                true,
-            })}
-          >
-            {item.category.label}
-          </div>
-          <div className={styles.item__portion}>{item.size}g</div>
-          <div className={styles.item__qtdpeople}>
-            Serve {item.serving} pessoa{item.serving > 1 && "s"}
-          </div>
-          <div className={styles.item__value}>
-            R$ {item.price.toFixed(2).replace(".", ",")}
-          </div>
-        </div>
+        <TagsDish {...item} />
       </div>
     </div>
   );

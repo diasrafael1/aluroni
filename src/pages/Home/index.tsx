@@ -1,10 +1,12 @@
-import itens from "data/itens.json";
-import styles from "./Home.module.scss";
-import stylesTheme from "styles/Theme.module.scss";
 import OurHome from "assets/nossa_casa.png";
+import dishes from "data/dishes.json";
+import { useNavigate } from "react-router-dom";
+import stylesTheme from "styles/Theme.module.scss";
+import styles from "./Home.module.scss";
 
 export default function Home() {
-  let recommendedDishes = [...itens];
+  const navigate = useNavigate();
+  let recommendedDishes = [...dishes];
   recommendedDishes = recommendedDishes
     .sort(() => 0.5 - Math.random())
     .splice(0, 3);
@@ -18,7 +20,12 @@ export default function Home() {
             <div className={styles.recommended__image}>
               <img src={item.photo} alt={item.title} />
             </div>
-            <button className={styles.recommended__button}>Ver mais</button>
+            <button
+              className={styles.recommended__button}
+              onClick={() => navigate(`/cardapio/prato/${item.id}`)}
+            >
+              Ver mais
+            </button>
           </div>
         ))}
       </div>
